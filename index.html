@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>От текста к результату: ИИ и читательская грамотность | Мастер-класс Мустафиной Тогжан</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            indigo: '#6366f1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #6366f1 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableCertificate, #printableCertificate * {
+                visibility: visible;
+            }
+            #printableCertificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+                border: 4px solid #f59e0b !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-200/50 dark:border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-accent-indigo flex items-center justify-center text-white font-bold shadow-lg shadow-brand-500/20">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold block">Мастер-класс</span>
+                    <span class="font-bold text-lg text-slate-900 dark:text-white">Мустафина Тогжан</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#concept" class="hover:text-brand-600 transition-colors">Концепция</a>
+                <a href="#lab" class="hover:text-brand-600 transition-colors">Лаборатория текста</a>
+                <a href="#ai-tools" class="hover:text-brand-600 transition-colors">ИИ-Фабрика</a>
+                <a href="#lesson-builder" class="hover:text-brand-600 transition-colors">Конструктор КСП</a>
+                <a href="#steps" class="hover:text-brand-600 transition-colors">Этапы</a>
+                <a href="#reflection" class="hover:text-brand-600 transition-colors">Рефлексия</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleDarkMode()" aria-label="Переключить тему" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
+                    <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+                </button>
+                <a href="#certificate" class="hidden sm:inline-flex items-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-indigo text-white font-medium text-sm shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                    <i data-lucide="award" class="w-4 h-4 mr-2"></i> Сертификат
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-16 lg:py-24">
+        <div class="absolute inset-0 -z-10 opacity-30 dark:opacity-20">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-brand-500 to-accent-purple rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        <span>Авторская методика & ИИ-интеграция</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        От текста к результату: <br>
+                        <span class="gradient-text">ИИ-инструменты</span> формирования читательской грамотности
+                    </h1>
+
+                    <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                        Инновационный мастер-класс на основе произведения В. А. Сухомлинского <strong>«Сказка о гусыне»</strong>. Синтез искусственного интеллекта, международной системы оценки (PISA / PIRLS) и нравственно-духовного воспитания.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-4 items-center">
+                        <a href="#ai-tools" class="px-6 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm shadow-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all flex items-center">
+                            <i data-lucide="cpu" class="w-4 h-4 mr-2"></i> ИИ-Симулятор для педагога
+                        </a>
+                        <a href="#lab" class="px-6 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-900 font-semibold text-sm transition-all flex items-center">
+                            <i data-lucide="book-open" class="w-4 h-4 mr-2"></i> Лаборатория текста
+                        </a>
+                    </div>
+
+                    <!-- Counter & Badges -->
+                    <div class="pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-3 gap-4">
+                        <div>
+                            <span class="block text-2xl font-bold text-slate-900 dark:text-white" id="participantCount">1,482</span>
+                            <span class="text-xs text-slate-500">Педагогов обучено</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-brand-600 dark:text-brand-400">PISA / PIRLS</span>
+                            <span class="text-xs text-slate-500">Уровни грамотности</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-accent-purple">100% ИИ</span>
+                            <span class="text-xs text-slate-500">Практическая адаптация</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md">
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 via-accent-indigo to-accent-purple blur-lg opacity-40"></div>
+                        <div class="relative glass-card rounded-3xl p-6 shadow-2xl">
+                            <div class="flex items-center space-x-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-500 to-accent-indigo flex items-center justify-center text-white text-2xl font-bold shadow-lg shrink-0">
+                                    МТ
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Мустафина Тогжан</h3>
+                                    <p class="text-xs text-brand-600 dark:text-brand-400 font-medium">Сертифицированный педагог-эксперт</p>
+                                    <p class="text-xs text-slate-500">Автор мастер-класса & ИИ-тренер</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-xs">
+                                <div class="flex items-start space-x-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-brand-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Ключевая идея:</strong> Развитие эмоционального интеллекта через текст</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-brand-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Практика:</strong> Генерация дифференцированных заданий в ChatGPT и Claude</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-brand-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Результат:</strong> Критическое мышление и моральная рефлексия учащихся</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Pedagogical Concept & Values -->
+    <section id="concept" class="py-16 bg-slate-100/60 dark:bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-2">Педагогическая концепция</h2>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Триединство: Читательская грамотность + ИИ + Воспитание</h3>
+                <p class="mt-3 text-slate-600 dark:text-slate-400 text-sm">Не просто читать текст, а анализировать его подтекст, чувствовать переживания героев и использовать искусственный интеллект для углубления рефлексии.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Level 1 -->
+                <div class="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-brand-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-4 font-bold text-xl">1</div>
+                    <h4 class="text-lg font-bold mb-2">Поиск информации и прямое понимание</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">
+                        Определение фактологических данных текста: Что сделала Гусыня во время града? Как она укрыла гусят от стихии?
+                    </p>
+                    <div class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 p-2.5 rounded-lg border border-blue-200 dark:border-blue-900">
+                        <i data-lucide="cpu" class="w-3 h-3 inline mr-1"></i> ИИ-инструмент: Фактологический квиз-генератор
+                    </div>
+                </div>
+
+                <!-- Level 2 -->
+                <div class="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-accent-purple/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-4 font-bold text-xl">2</div>
+                    <h4 class="text-lg font-bold mb-2">Интерпретация и скрытый смысл</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">
+                        Понимание символов и причинно-следственных связей: Почему Гусыня улыбнулась, несмотря на сломанные крылья?
+                    </p>
+                    <div class="text-[11px] font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 p-2.5 rounded-lg border border-purple-200 dark:border-purple-900">
+                        <i data-lucide="cpu" class="w-3 h-3 inline mr-1"></i> ИИ-инструмент: Симулятор проблемных вопросов
+                    </div>
+                </div>
+
+                <!-- Level 3 -->
+                <div class="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-accent-amber/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 font-bold text-xl">3</div>
+                    <h4 class="text-lg font-bold mb-2">Рефлексия и нравственная ценность</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">
+                        Осмысление и личный опыт: Осознаешь ли ты самопожертвование матери в собственной жизни? Бескорыстная материнская любовь.
+                    </p>
+                    <div class="text-[11px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 p-2.5 rounded-lg border border-amber-200 dark:border-amber-900">
+                        <i data-lucide="cpu" class="w-3 h-3 inline mr-1"></i> ИИ-инструмент: ИИ-Анализатор эссе и эмпатии
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Text Lab (Sukhomlinsky Story Lab) -->
+    <section id="lab" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-1">Лаборатория глубокого чтения</h2>
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">В. А. Сухомлинский «Сказка о гусыне»</h3>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleTextHighlight()" class="px-3.5 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-xs font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+                        <i data-lucide="highlighter" class="w-3.5 h-3.5 inline mr-1"></i> Подсветить триггеры
+                    </button>
+                    <button onclick="simulateAudioPlay()" id="audioBtn" class="px-3.5 py-2 rounded-xl bg-brand-600 text-white text-xs font-semibold hover:bg-brand-700 transition flex items-center">
+                        <i data-lucide="volume-2" class="w-3.5 h-3.5 mr-1"></i> Аудио-чтение
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- Text Container -->
+                <div class="lg:col-span-7 glass-card rounded-3xl p-6 md:p-8 relative">
+                    <div class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed space-y-4" id="storyText">
+                        <p>
+                            Был солнечный весенний день. Старая Гусыня впервые вывела на луг своих маленьких пушистых гусят. Они радовались теплому солнцу, мягкой зеленой траве и с интересом исследовали окружающий мир...
+                        </p>
+                        <p class="p-3 rounded-xl transition-all duration-300" id="trig1">
+                            Вдруг небо затянулось темными тучами. Прогремел гром, и на землю <span class="highlight-target font-bold text-slate-900 dark:text-white underline decoration-rose-500 decoration-2">обрушился крупный, холодный град</span>. Маленькие гусята испуганно запищали и побежали к матери.
+                        </p>
+                        <p class="p-3 rounded-xl transition-all duration-300" id="trig2">
+                            Гусыня широко расправила крылья и накрыла ими всех своих детей. Град беспощадно бил по спине, голове и крыльям матери. Ей было невероятно больно, но она не шелохнулась, защищая теплыми крыльями жизнь каждого гусенка.
+                        </p>
+                        <p class="p-3 rounded-xl transition-all duration-300" id="trig3">
+                            Когда туча прошла и град прекратился, Гусыня с трудом подняла крылья. Ее <span class="highlight-target font-bold text-slate-900 dark:text-white underline decoration-amber-500 decoration-2">крылья были изранены, а перья выбиты</span>. Гусята же невредимые выбежали на траву и весело затрепетали крылышками, даже не заметивши страданий матери.
+                        </p>
+                        <p class="p-3 rounded-xl transition-all duration-300" id="trig4">
+                            Изнемогающая от боли Гусыня посмотрела на своих счастливых детей и <span class="highlight-target font-bold text-slate-900 dark:text-white underline decoration-brand-500 decoration-2">радостно улыбнулась</span>. В этом заключалась великая и бескорыстная сила материнской любви.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Analysis Panel -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="glass-card rounded-2xl p-5 border-l-4 border-l-rose-500">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-rose-500 block mb-1">Символ & Испытание</span>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Град и Материнские Крылья</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Жизненные невзгоды и безусловная защита матери. Вопрос PISA: Смогли ли гусята сразу осознать цену своей безопасности?</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-5 border-l-4 border-l-amber-500">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-amber-500 block mb-1">Эмоциональный контекст</span>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Израненное тело & Счастливая улыбка</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Контраст физической боли и духовной победы. Для матери высшее счастье — безопасность и радость детей.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-5 border-l-4 border-l-brand-500">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-500 block mb-1">Нравственный вывод</span>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Урок благодарности и эмпатии</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Формирование у учащихся чувства признательности к родителям, осознание материнского труда и заботы.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: AI Tools Factory -->
+    <section id="ai-tools" class="py-16 bg-slate-100/60 dark:bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-2">Инновационный инструментарий</h2>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white">ИИ-Фабрика педагога</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm">База готовых промптов, интерактивный ИИ-ассистент и симулятор оценивания ответы</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex p-1.5 rounded-2xl glass-card space-x-2">
+                    <button onclick="switchTab('prompts')" id="tab-prompts" class="px-5 py-2.5 rounded-xl text-xs font-semibold transition-all bg-brand-600 text-white shadow-md">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5 inline mr-1.5"></i> Конструктор промптов
+                    </button>
+                    <button onclick="switchTab('chat')" id="tab-chat" class="px-5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900">
+                        <i data-lucide="bot" class="w-3.5 h-3.5 inline mr-1.5"></i> ИИ Педагог-Ассистент
+                    </button>
+                    <button onclick="switchTab('grader')" id="tab-grader" class="px-5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900">
+                        <i data-lucide="check-square" class="w-3.5 h-3.5 inline mr-1.5"></i> ИИ Рубрикатор ответов
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 1: Prompt Engineering -->
+            <div id="content-prompts" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-card rounded-2xl p-6 relative group border border-slate-200 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-[10px] font-bold">1-й уровень: Анализ и интерпретация</span>
+                            <button onclick="copyPrompt('prompt1')" class="text-xs text-slate-500 hover:text-brand-600 flex items-center">
+                                <i data-lucide="copy" class="w-3.5 h-3.5 mr-1"></i> Копировать
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-sm mb-2">Промпт «Раскрытие идеи произведения» (ChatGPT / Claude)</h4>
+                        <div class="p-3 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs leading-relaxed overflow-x-auto" id="prompt1">
+«Ты учитель начальных классов. На основе "Сказки о гусыне" В. Сухомлинского составь 3 проблемных ("толстых") вопроса по стандартам PIRLS/PISA для проверки умения учащихся интерпретировать подтекст и мотивы действий героев. Добавь дескрипторы ответов.»
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 relative group border border-slate-200 dark:border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-[10px] font-bold">2-й уровень: Нравственный кейс</span>
+                            <button onclick="copyPrompt('prompt2')" class="text-xs text-slate-500 hover:text-brand-600 flex items-center">
+                                <i data-lucide="copy" class="w-3.5 h-3.5 mr-1"></i> Копировать
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-sm mb-2">Промпт «Ситуативный нравственный выбор»</h4>
+                        <div class="p-3 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs leading-relaxed overflow-x-auto" id="prompt2">
+«Составь 2 практические жизненные ситуации (кейсы) для учащихся 3-4 классов, переносые мораль "Сказки о гусыне" (самопожертвование, забота о родителях) в контекст жизни современного ребенка. Включи вопросы для дискуссии.»
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: AI Pedagogy Assistant Chat -->
+            <div id="content-chat" class="hidden">
+                <div class="glass-card rounded-3xl max-w-3xl mx-auto overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center">
+                                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs">AI Pedagogy Assistant</h4>
+                                <span class="text-[10px] text-brand-400">По методологии Мустафиной Тогжан</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">Онлайн</span>
+                    </div>
+
+                    <div id="chatMessages" class="p-4 h-80 overflow-y-auto space-y-4 text-xs bg-slate-50/50 dark:bg-slate-950/50">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-6 h-6 rounded-full bg-brand-600 text-white flex items-center justify-center text-[10px] shrink-0">AI</div>
+                            <div class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-[80%] shadow-sm leading-relaxed">
+                                Здравствуйте, уважаемый педагог! Какой учебный вопрос, задание или промпт по «Сказке о гусыне» вы хотите сгенерировать?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center space-x-2">
+                        <input type="text" id="chatInput" placeholder="Введите ваш запрос к ИИ (например: придумай дифференцированное задание)..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-0 rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-brand-500 outline-none">
+                        <button onclick="sendChatMessage()" class="p-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Essay Grader -->
+            <div id="content-grader" class="hidden">
+                <div class="glass-card rounded-3xl p-6 max-w-3xl mx-auto space-y-4 border border-slate-200 dark:border-slate-800">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Симулятор ИИ-оценивания письменных ответов учащихся</h4>
+                    <p class="text-xs text-slate-500">Искусственный интеллект анализирует ответ ученика по критериям PIRLS/PISA и формирует конструктивную обратную связь.</p>
+
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Введите ответ ученика для проверки:</label>
+                        <textarea id="studentAnswer" rows="4" class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs focus:ring-2 focus:ring-brand-500 outline-none" placeholder="Пример: Гусыня улыбнулась, потому что увидела, что ее гусята живы и невредимы. Ей было больно, но любовь к детям оказалась сильнее..."></textarea>
+                    </div>
+
+                    <button onclick="analyzeAnswer()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-accent-indigo text-white font-semibold text-xs shadow-md hover:shadow-lg transition">
+                        <i data-lucide="sparkles" class="w-4 h-4 inline mr-1"></i> Выполнить ИИ-Анализ
+                    </button>
+
+                    <div id="graderResult" class="hidden p-4 rounded-2xl bg-slate-900 text-slate-200 text-xs space-y-2">
+                        <!-- Result from JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Lesson Plan Generator (Конструктор КСП) -->
+    <section id="lesson-builder" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-1">Практический модуль</h2>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Конструктор краткосрочного плана (КСП)</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm">Сгенерируйте адаптированный план урока с интегрированными ИИ-заданиями</p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-slate-200 dark:border-slate-800">
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Класс:</label>
+                        <select id="gradeSelect" class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="2 класс">2 класс</option>
+                            <option value="3 класс" selected>3 класс</option>
+                            <option value="4 класс">4 класс</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Фокус читательской грамотности:</label>
+                        <select id="focusSelect" class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="Интерпретация и выводы">Интерпретация и выводы</option>
+                            <option value="Оценка нравственного подтекста">Оценка нравственного подтекста</option>
+                            <option value="Критический анализ стиля автора">Критический анализ стиля автора</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">ИИ-инструмент на уроке:</label>
+                        <select id="toolSelect" class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="ChatGPT - генерация проблемных вопросов">ChatGPT - генерация вопросов</option>
+                            <option value="ИИ-Картинка - визуализация символов">Визуализация ключевых сцен</option>
+                            <option value="ИИ-Рубрикатор взаимооценивания">Рубрикатор взаимооценивания</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="generateLessonPlan()" class="w-full py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs shadow-lg hover:opacity-90 transition">
+                    <i data-lucide="file-text" class="w-4 h-4 inline mr-1.5"></i> Сформировать план урока
+                </button>
+
+                <div id="lessonPlanOutput" class="hidden mt-6 p-6 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed space-y-3">
+                    <!-- Dynamic Lesson Output -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Master-Class Steps Section -->
+    <section id="steps" class="py-16 bg-slate-100/60 dark:bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-2">Практический алгоритм</h2>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Этапы проведения мастер-класса</h3>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-brand-500">
+                    <span class="text-2xl font-black text-brand-500 mb-2 block">01</span>
+                    <h4 class="font-bold text-sm mb-2">Эмоциональное погружение</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Выразительное чтение текста, выявление первичного восприятия, создание атмосферы эмпатии.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-blue-500">
+                    <span class="text-2xl font-black text-blue-500 mb-2 block">02</span>
+                    <h4 class="font-bold text-sm mb-2">Анализ текста & ИИ</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Формирование вопросов 3-х уровней PISA/PIRLS с помощью генеративных промптов.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-500">
+                    <span class="text-2xl font-black text-purple-500 mb-2 block">03</span>
+                    <h4 class="font-bold text-sm mb-2">Нравственный трансфер</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Перенос идеи произведения в реальную жизнь учащегося через ситуативные кейсы.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-accent-amber">
+                    <span class="text-2xl font-black text-accent-amber mb-2 block">04</span>
+                    <h4 class="font-bold text-sm mb-2">Рефлексия и оценка</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">ИИ-анализ эссе учащихся, обратная связь педагога, подведение метапредметных итогов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Padlet Style Reflection Board -->
+    <section id="reflection" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h2 class="text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-bold mb-2">Интерактивная доска</h2>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Рефлексия участников мастер-класса</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm">Поделитесь вашим отзывом, идеей или методической находкой</p>
+            </div>
+
+            <!-- Sticky Note Input Form -->
+            <div class="glass-card p-6 rounded-3xl max-w-2xl mx-auto mb-10 shadow-lg border border-slate-200 dark:border-slate-800">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="noteAuthor" placeholder="Ваше Имя, Фамилия и школа" class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500">
+                    <select id="noteTag" class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500">
+                        <option value="💡 Эффективный метод">💡 Эффективный метод</option>
+                        <option value="❤️ Нравственный аспект">❤️ Нравственный аспект</option>
+                        <option value="🚀 ИИ-инновации">🚀 ИИ-инновации</option>
+                    </select>
+                </div>
+                <textarea id="noteText" rows="2" placeholder="Ваш отзыв или педагогический вывод..." class="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs outline-none focus:ring-2 focus:ring-brand-500 mb-4"></textarea>
+                <button onclick="addStickyNote()" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold hover:opacity-90 transition">
+                    Опубликовать на доске
+                </button>
+            </div>
+
+            <!-- Board Notes Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="stickyNotesGrid">
+                <div class="p-5 rounded-2xl bg-amber-100/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-slate-800 dark:text-amber-100 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200">❤️ Нравственный аспект</span>
+                        <span class="text-[10px] text-slate-500">Сегодня</span>
+                    </div>
+                    <p class="text-xs mb-4 italic leading-relaxed">«Идея объединения нравственного наследия Сухомлинского с современными ИИ-технологиями поражает своей глубиной. Дети учатся чувствовать и мыслить одновременно!»</p>
+                    <span class="text-xs font-bold block text-right">— Елена В., г. Астана</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-emerald-100/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-slate-800 dark:text-emerald-100 shadow-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">🚀 ИИ-инновации</span>
+                        <span class="text-[10px] text-slate-500">Вчера</span>
+                    </div>
+                    <p class="text-xs mb-4 italic leading-relaxed">«Промпт-инжиниринг для начальных классов — это прорыв. Теперь составление заданий PISA занимает считанные минуты!»</p>
+                    <span class="text-xs font-bold block text-right">— Арман К., г. Алматы</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Generator Section -->
+    <section id="certificate" class="py-16 bg-slate-100/60 dark:bg-slate-900/40">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-8 border border-brand-500/30 text-center relative overflow-hidden shadow-2xl">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-500 to-accent-indigo text-white flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <i data-lucide="award" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Сертификат участника мастер-класса</h3>
+                <p class="text-xs text-slate-500 max-w-lg mx-auto mb-6">
+                    Введите ваши данные для генерации именного электронного сертификата о прохождении авторского мастер-класса Мустафиной Тогжан.
+                </p>
+
+                <div class="max-w-md mx-auto space-y-4">
+                    <input type="text" id="certName" placeholder="Введите ваше Ф.И.О." class="w-full p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-center font-semibold focus:ring-2 focus:ring-brand-500 outline-none">
+                    <div class="flex gap-2">
+                        <button onclick="generateCertificate()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 via-accent-indigo to-accent-purple text-white font-bold text-xs shadow-xl hover:opacity-95 transition transform hover:-translate-y-0.5">
+                            Сгенерировать сертификат
+                        </button>
+                        <button onclick="printCertificate()" id="printBtn" class="hidden py-3.5 px-4 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs shadow-xl hover:opacity-90 transition">
+                            <i data-lucide="printer" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview Certificate Card -->
+                <div id="certPreview" class="hidden mt-8 p-8 rounded-2xl bg-white text-slate-900 border-8 border-amber-400 relative shadow-2xl max-w-xl mx-auto text-left font-serif">
+                    <div id="printableCertificate">
+                        <div class="text-center border-b-2 border-amber-400 pb-4 mb-6">
+                            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-sans block mb-1">СЕРТИФИКАТ УЧАСТНИКА</span>
+                            <h4 class="text-xl font-bold text-amber-700 font-sans">«От текста к результату: читательская грамотность и ИИ»</h4>
+                        </div>
+                        <p class="text-xs text-center mb-2 font-sans">Настоящим подтверждается, что</p>
+                        <h2 class="text-2xl font-bold text-center underline decoration-amber-500 mb-6 font-sans text-slate-900" id="certNameDisplay">Иванова Анна Сергеевна</h2>
+                        <p class="text-xs text-slate-700 text-center leading-relaxed mb-8 font-sans">
+                            успешно прошла практический мастер-класс по методике формирования читательской грамотности учащихся на основе произведения В. А. Сухомлинского «Сказка о гусыне» с применением технологий искусственного интеллекта.
+                        </p>
+                        <div class="flex justify-between items-end text-[11px] font-sans pt-4 border-t border-slate-200">
+                            <div>
+                                <span class="block font-bold text-slate-900">Автор мастер-класса:</span>
+                                <span class="text-slate-600">Мустафина Тогжан</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block font-bold text-slate-900">Дата выдачи:</span>
+                                <span class="text-slate-600" id="certDate">02.11.2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Авторская платформа мастер-класса. Автор: Мустафина Тогжан.</p>
+            <p class="mt-1 text-[11px] text-slate-400">Читательская грамотность | Искусственный Интеллект | Нравственное воспитание</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Highlight Story Triggers
+        let isHighlighted = false;
+        function toggleTextHighlight() {
+            isHighlighted = !isHighlighted;
+            const ids = ['trig1', 'trig2', 'trig3', 'trig4'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (isHighlighted) {
+                    el.classList.add('bg-brand-500/10', 'dark:bg-brand-500/20');
+                } else {
+                    el.classList.remove('bg-brand-500/10', 'dark:bg-brand-500/20');
+                }
+            });
+        }
+
+        // Simulate Audio Player
+        function simulateAudioPlay() {
+            const btn = document.getElementById('audioBtn');
+            btn.innerHTML = `<i data-lucide="pause" class="w-3.5 h-3.5 mr-1"></i> Пауза`;
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.innerHTML = `<i data-lucide="volume-2" class="w-3.5 h-3.5 mr-1"></i> Аудио-чтение`;
+                lucide.createIcons();
+            }, 6000);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            document.getElementById('content-prompts').classList.add('hidden');
+            document.getElementById('content-chat').classList.add('hidden');
+            document.getElementById('content-grader').classList.add('hidden');
+
+            document.getElementById('tab-prompts').className = 'px-5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300';
+            document.getElementById('tab-chat').className = 'px-5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300';
+            document.getElementById('tab-grader').className = 'px-5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300';
+
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            activeBtn.className = 'px-5 py-2.5 rounded-xl text-xs font-semibold transition-all bg-brand-600 text-white shadow-md';
+        }
+
+        // Copy Prompt Text
+        function copyPrompt(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert('Промпт успешно скопирован в буфер обмена!');
+        }
+
+        // AI Assistant Chat Simulation
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'flex items-start space-x-2 justify-end';
+            userDiv.innerHTML = `
+                <div class="p-3 rounded-2xl bg-brand-600 text-white max-w-[80%] shadow-sm leading-relaxed">
+                    ${text}
+                </div>
+            `;
+            chatMessages.appendChild(userDiv);
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // AI Response Simulation
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'flex items-start space-x-2';
+                aiDiv.innerHTML = `
+                    <div class="w-6 h-6 rounded-full bg-brand-600 text-white flex items-center justify-center text-[10px] shrink-0">AI</div>
+                    <div class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-[80%] shadow-sm leading-relaxed">
+                        <strong>ИИ-Ассистент Мустафиной Тогжан:</strong><br>
+                        «Отличный запрос! На основе "Сказки о гусыне" предлагаю использовать следующий педагогический ход: попросите учеников составить <em>"Письмо благодарности от лица выросшего гусенка к матери"</em>. Это развивает уровень рефлексии (PISA уровень 4-5) и эмоциональную отзывчивость.»
+                    </div>
+                `;
+                chatMessages.appendChild(aiDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        // Analyze Student Essay
+        function analyzeAnswer() {
+            const answer = document.getElementById('studentAnswer').value.trim();
+            const resultBox = document.getElementById('graderResult');
+
+            if(!answer) {
+                alert('Пожалуйста, введите текст ответа ученика!');
+                return;
+            }
+
+            resultBox.classList.remove('hidden');
+            resultBox.innerHTML = `
+                <div class="font-bold text-brand-400 mb-1">Результат ИИ-Анализа ответа:</div>
+                <ul class="space-y-1.5 text-[11px] list-disc list-inside text-slate-300">
+                    <li><strong>Понимание текста (PIRLS):</strong> Высокий уровень (9/10). Ученик верно уловил главный подтекст самопожертвования.</li>
+                    <li><strong>Эмоциональная отзывчивость:</strong> Проявлена эмпатия к переживаниям матери.</li>
+                    <li><strong>Рекомендация учителю:</strong> Предложите ученику аргументировать ответ цитатой из произведения для укрепления навыка работы с текстом.</li>
+                </ul>
+            `;
+        }
+
+        // Lesson Plan Generator
+        function generateLessonPlan() {
+            const grade = document.getElementById('gradeSelect').value;
+            const focus = document.getElementById('focusSelect').value;
+            const tool = document.getElementById('toolSelect').value;
+            const output = document.getElementById('lessonPlanOutput');
+
+            output.classList.remove('hidden');
+            output.innerHTML = `
+                <div class="text-brand-400 font-bold border-b border-slate-700 pb-2 mb-2">
+                    📋 СГЕНЕРИРОВАННЫЙ КРАТКОСРОЧНЫЙ ПЛАН (КСП)
+                </div>
+                <div><strong>Класс:</strong> ${grade}</div>
+                <div><strong>Тема:</strong> В. А. Сухомлинский «Сказка о гусыне». Сила материнской любви.</div>
+                <div><strong>Цель читательской грамотности:</strong> ${focus}</div>
+                <div><strong>ИИ-инструмент:</strong> ${tool}</div>
+                <div class="pt-2"><strong>Ход урока:</strong></div>
+                <ol class="list-decimal list-inside space-y-1 text-slate-300 pl-2">
+                    <li><strong>Орг. момент (5 мин):</strong> Просмотр иллюстрации гусыни с гусятами, вызов эмоций.</li>
+                    <li><strong>Чтение и работа с текстом (15 мин):</strong> Применение техники "Чтение с остановками".</li>
+                    <li><strong>ИИ-Практикум (15 мин):</strong> Выполнение заданий, сгенерированных через ${tool}.</li>
+                    <li><strong>Рефлексия (10 мин):</strong> Написание синквейна или морального резюме.</li>
+                </ol>
+            `;
+        }
+
+        // Add Sticky Note to Reflection Wall
+        function addStickyNote() {
+            const author = document.getElementById('noteAuthor').value.trim();
+            const tag = document.getElementById('noteTag').value;
+            const text = document.getElementById('noteText').value.trim();
+
+            if(!author || !text) {
+                alert('Пожалуйста, заполните ваше имя и текст отзыва!');
+                return;
+            }
+
+            const grid = document.getElementById('stickyNotesGrid');
+            const card = document.createElement('div');
+            card.className = 'p-5 rounded-2xl bg-purple-100/80 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-slate-800 dark:text-purple-100 shadow-md transition-all hover:scale-105';
+            card.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200 dark:bg-purple-900 text-purple-800 dark:text-purple-200">${tag}</span>
+                    <span class="text-[10px] text-slate-500">Только что</span>
+                </div>
+                <p class="text-xs mb-4 italic leading-relaxed">«${text}»</p>
+                <span class="text-xs font-bold block text-right">— ${author}</span>
+            `;
+            grid.prepend(card);
+
+            document.getElementById('noteAuthor').value = '';
+            document.getElementById('noteText').value = '';
+        }
+
+        // Certificate Generation
+        function generateCertificate() {
+            const name = document.getElementById('certName').value.trim();
+            if(!name) {
+                alert('Пожалуйста, введите ваше Ф.И.О.!');
+                return;
+            }
+
+            document.getElementById('certNameDisplay').innerText = name;
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById('certDate').innerText = `${day}.${month}.${year}`;
+
+            document.getElementById('certPreview').classList.remove('hidden');
+            document.getElementById('printBtn').classList.remove('hidden');
+
+            // Celebration Confetti
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Print Certificate
+        function printCertificate() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
